@@ -46,3 +46,22 @@ pub fn select_sort<T: PartialOrd>(arr: &mut [T]) {
         }
     }
 }
+
+/// 插入排序
+///
+/// ```
+/// use algorithm::sort::{insert_sort, select_sort};
+/// let mut arr = [3, 2, 1];
+/// select_sort(&mut arr);
+/// assert_eq!([1, 2, 3], arr);
+/// ```
+pub fn insert_sort<T: PartialOrd>(arr: &mut [T]) {
+    for x in 1..arr.len() {
+        for y in (1..=x).rev() {
+            if arr[y] > arr[y - 1] {
+                break;
+            }
+            arr.swap(y, y - 1);
+        }
+    }
+}

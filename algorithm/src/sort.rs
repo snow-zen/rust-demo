@@ -128,3 +128,65 @@ where
         intermediate_arr[t_idx..].copy_from_slice(&right_arr[r_idx..]);
     }
 }
+
+/// 快速排序
+///
+/// ```
+/// use algorithm::sort::quick_sort;
+/// let mut arr = [3, 2, 1];
+/// quick_sort(&mut arr);
+/// assert_eq!([1, 2, 3], arr);
+/// ```
+pub fn quick_sort<T>(arr: &mut [T])
+    where
+        T: PartialOrd,
+{
+    if arr.len() <= 1 {
+        return;
+    }
+
+    quick_sort_by(arr, 0, arr.len() - 1);
+}
+
+fn quick_sort_by<T>(arr: &mut [T], start: usize, end: usize)
+    where
+        T: PartialOrd,
+{
+    if start >= end {
+        return;
+    }
+
+    let pivot = partition(arr, start, end);
+
+    if let Some(r) = pivot.checked_sub(1) {
+        quick_sort_by(arr, start, r);
+    }
+    if let Some(r) = pivot.checked_add(1) {
+        quick_sort_by(arr, r, end);
+    }
+}
+
+fn partition<T>(arr: &mut [T], start: usize, end: usize) -> usize
+    where
+        T: PartialOrd,
+{
+    let pivot = start;
+    let mut l_idx = start + 1;
+    let mut r_idx = end;
+
+    loop {
+        while l_idx < arr.len() && arr[l_idx] < arr[pivot] {
+            l_idx += 1;
+        }
+        while r_idx > 0 && arr[r_idx] > arr[pivot] {
+            r_idx -= 1;
+        }
+
+        if l_idx >= r_idx {
+            break;
+        }
+        arr.swap(l_idx, r_idx);
+    }
+    arr.swap(pivot, r_idx);
+    r_idx
+}

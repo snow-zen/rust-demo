@@ -9,7 +9,10 @@ mod tests;
 /// bubble_sort(&mut arr);
 /// assert_eq!([1, 2, 3], arr);
 /// ```
-pub fn bubble_sort<T: PartialOrd>(arr: &mut [T]) {
+pub fn bubble_sort<T>(arr: &mut [T])
+where
+    T: PartialOrd,
+{
     for x in 1..arr.len() {
         let mut sweep = false;
         for y in 0..arr.len() - x {
@@ -32,7 +35,10 @@ pub fn bubble_sort<T: PartialOrd>(arr: &mut [T]) {
 /// let mut arr = [3, 2, 1];
 /// select_sort(&mut arr);
 /// assert_eq!([1, 2, 3], arr);
-pub fn select_sort<T: PartialOrd>(arr: &mut [T]) {
+pub fn select_sort<T>(arr: &mut [T])
+where
+    T: PartialOrd,
+{
     for x in 1..arr.len() {
         let mut min_idx = x - 1;
         for y in x..arr.len() {
@@ -55,7 +61,10 @@ pub fn select_sort<T: PartialOrd>(arr: &mut [T]) {
 /// select_sort(&mut arr);
 /// assert_eq!([1, 2, 3], arr);
 /// ```
-pub fn insert_sort<T: PartialOrd>(arr: &mut [T]) {
+pub fn insert_sort<T>(arr: &mut [T])
+where
+    T: PartialOrd,
+{
     for x in 1..arr.len() {
         for y in (1..=x).rev() {
             if arr[y] > arr[y - 1] {
@@ -74,7 +83,10 @@ pub fn insert_sort<T: PartialOrd>(arr: &mut [T]) {
 /// merge_sort(&mut arr);
 /// assert_eq!([1, 2, 3], arr);
 /// ```
-pub fn merge_sort<T: Copy + PartialOrd>(arr: &mut [T]) {
+pub fn merge_sort<T>(arr: &mut [T])
+where
+    T: Copy + PartialOrd,
+{
     let mid = arr.len() / 2;
     if mid == 0 {
         return;
@@ -89,7 +101,10 @@ pub fn merge_sort<T: Copy + PartialOrd>(arr: &mut [T]) {
     arr.copy_from_slice(&intermediate_arr);
 }
 
-fn merge<T: Copy + PartialOrd>(left_arr: &[T], right_arr: &[T], intermediate_arr: &mut [T]) {
+fn merge<T>(left_arr: &[T], right_arr: &[T], intermediate_arr: &mut [T])
+where
+    T: Copy + PartialOrd,
+{
     let mut l_idx = 0;
     let mut r_idx = 0;
     let mut t_idx = 0;

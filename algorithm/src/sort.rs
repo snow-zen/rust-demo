@@ -65,12 +65,26 @@ pub fn insert_sort<T>(arr: &mut [T])
 where
     T: PartialOrd,
 {
-    for x in 1..arr.len() {
-        for y in (1..=x).rev() {
-            if arr[y] > arr[y - 1] {
-                break;
-            }
+    // 找出最小值作为哨兵放在最左边，可避免索引越界检测
+    let mut change = false;
+    for x in (1..arr.len()).rev() {
+        if arr[x] < arr[x - 1] {
+            arr.swap(x, x - 1);
+            change = true;
+        }
+    }
+
+    // 如果没有发生过一次交换，则表示数组本身就是有序的
+    if !change {
+        return;
+    }
+
+    // 左移小值进行排序
+    for x in 2..arr.len() {
+        let mut y = x;
+        while arr[y] < arr[y - 1] {
             arr.swap(y, y - 1);
+            y -= 1;
         }
     }
 }

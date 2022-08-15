@@ -203,3 +203,32 @@ where
     arr.swap(pivot, r_idx);
     r_idx
 }
+
+/// 希尔排序
+///
+/// ```
+/// use algorithm::sort::shell_sort;
+/// let mut arr = [3, 2, 1];
+/// shell_sort(&mut arr);
+/// assert_eq!([1, 2, 3], arr)
+/// ```
+pub fn shell_sort<T>(arr: &mut [T])
+where
+    T: PartialOrd,
+{
+    let mut h = 1;
+    while h < arr.len() / 3 {
+        h = 3 * h + 1;
+    }
+
+    while h >= 1 {
+        for x in h..arr.len() {
+            let mut y = x;
+            while y >= h && arr[y] < arr[y - h] {
+                arr.swap(y, y - h);
+                y -= h;
+            }
+        }
+        h /= 3;
+    }
+}

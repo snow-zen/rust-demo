@@ -94,34 +94,66 @@ mod insert_sort_tests {
     }
 }
 
-mod merge_sort_tests {
-    use super::super::merge_sort;
+mod top_down_merge_sort_tests {
+    use super::super::top_down_merge_sort;
 
     #[test]
     fn test_sort() {
         let mut arr = [3, 2, 1];
-        merge_sort(&mut arr);
+        top_down_merge_sort(&mut arr);
         assert_eq!([1, 2, 3], arr);
     }
 
     #[test]
     fn test_sorted() {
         let mut arr = [1, 2, 3];
-        merge_sort(&mut arr);
+        top_down_merge_sort(&mut arr);
         assert_eq!([1, 2, 3], arr);
     }
 
     #[test]
     fn test_repeat() {
         let mut arr = [2, 1, 1, 3];
-        merge_sort(&mut arr);
+        top_down_merge_sort(&mut arr);
         assert_eq!([1, 1, 2, 3], arr);
     }
 
     #[test]
     fn test_empty() {
         let mut arr: [i32; 0] = [];
-        merge_sort(&mut arr);
+        top_down_merge_sort(&mut arr);
+        assert_eq!(0, arr.len());
+    }
+}
+
+mod bottom_up_merge_sort_tests {
+    use super::super::bottom_up_merge_sort;
+
+    #[test]
+    fn test_sort() {
+        let mut arr = [3, 2, 1];
+        bottom_up_merge_sort(&mut arr);
+        assert_eq!([1, 2, 3], arr);
+    }
+
+    #[test]
+    fn test_sorted() {
+        let mut arr = [1, 2, 3];
+        bottom_up_merge_sort(&mut arr);
+        assert_eq!([1, 2, 3], arr);
+    }
+
+    #[test]
+    fn test_repeat() {
+        let mut arr = [2, 1, 1, 3];
+        bottom_up_merge_sort(&mut arr);
+        assert_eq!([1, 1, 2, 3], arr);
+    }
+
+    #[test]
+    fn test_empty() {
+        let mut arr: [i32; 0] = [];
+        bottom_up_merge_sort(&mut arr);
         assert_eq!(0, arr.len());
     }
 }

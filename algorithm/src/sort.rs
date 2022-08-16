@@ -1,3 +1,5 @@
+use std::cmp::min;
+
 #[cfg(test)]
 mod tests;
 
@@ -89,15 +91,15 @@ where
     }
 }
 
-/// 归并排序
+/// 自顶向下归并排序
 ///
 /// ```
-/// use algorithm::sort::merge_sort;
+/// use algorithm::sort::top_down_merge_sort;
 /// let mut arr = [3, 2, 1];
-/// merge_sort(&mut arr);
+/// top_down_merge_sort(&mut arr);
 /// assert_eq!([1, 2, 3], arr);
 /// ```
-pub fn merge_sort<T>(arr: &mut [T])
+pub fn top_down_merge_sort<T>(arr: &mut [T])
 where
     T: Copy + PartialOrd,
 {
@@ -106,8 +108,8 @@ where
         return;
     }
 
-    merge_sort(&mut arr[..mid]);
-    merge_sort(&mut arr[mid..]);
+    top_down_merge_sort(&mut arr[..mid]);
+    top_down_merge_sort(&mut arr[mid..]);
 
     let mut intermediate_arr = arr.to_vec();
     merge(&arr[..mid], &arr[mid..], &mut intermediate_arr);
@@ -140,6 +142,56 @@ where
 
     if r_idx < right_arr.len() {
         intermediate_arr[t_idx..].copy_from_slice(&right_arr[r_idx..]);
+    }
+}
+
+/// 自底向上的归并排序
+///
+/// ```
+/// use algorithm::sort::bottom_up_merge_sort;
+/// let mut arr = [3, 2, 1];
+/// bottom_up_merge_sort(&mut arr);
+/// assert_eq!([1, 2, 3], arr);
+/// ```
+pub fn bottom_up_merge_sort<T>(arr: &mut [T])
+where
+    T: PartialOrd + Copy,
+{
+    let mut len = 1;
+    while len < arr.len() {
+        for start in (0..(arr.len() - len)).step_by(len * 2) {
+            let mid = start + len - 1;
+            let end = min(start + len * 2 - 1, arr.len() - 1);
+
+            bottom_up_merge(arr, start, mid, end);
+        }
+        len *= 2;
+    }
+}
+
+fn bottom_up_merge<T>(arr: &mut [T], start: usize, mid: usize, end: usize)
+where
+    T: PartialOrd + Copy,
+{
+    let copy_arr = arr.to_vec();
+
+    let mut i_idx = start;
+    let mut j_idx = mid + 1;
+
+    for x in start..=end {
+        if i_idx > mid {
+            arr[x] = copy_arr[j_idx];
+            j_idx += 1;
+        } else if j_idx > end {
+            arr[x] = copy_arr[i_idx];
+            i_idx += 1;
+        } else if copy_arr[i_idx] < copy_arr[j_idx] {
+            arr[x] = copy_arr[i_idx];
+            i_idx += 1;
+        } else {
+            arr[x] = copy_arr[j_idx];
+            j_idx += 1;
+        }
     }
 }
 

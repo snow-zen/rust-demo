@@ -111,6 +111,11 @@ where
     top_down_merge_sort(&mut arr[..mid]);
     top_down_merge_sort(&mut arr[mid..]);
 
+    if arr[mid + 1] >= arr[mid] {
+        // 左边区域的最大值小于等于右边区域的最小值时，表示本身已经有序。
+        return;
+    }
+
     let mut intermediate_arr = arr.to_vec();
     merge(&arr[..mid], &arr[mid..], &mut intermediate_arr);
 

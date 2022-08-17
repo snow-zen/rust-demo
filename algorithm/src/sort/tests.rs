@@ -99,9 +99,9 @@ mod td_merge_sort_tests {
 
     #[test]
     fn test_sort() {
-        let mut arr = [3, 2, 1];
+        let mut arr = [8, 7, 6, 5, 4, 3, 2, 1];
         TdMerge::sort(&mut arr);
-        assert_eq!([1, 2, 3], arr);
+        assert_eq!([1, 2, 3, 4, 5, 6, 7, 8], arr);
     }
 
     #[test]

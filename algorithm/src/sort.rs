@@ -141,6 +141,11 @@ impl<T: PartialOrd + Copy> Sort<T> for TdMerge {
     /// assert_eq!([1, 2, 3], arr);
     /// ```
     fn sort(arr: &mut [T]) {
+        if arr.len() < 7 {
+            Insert::sort(arr);
+            return;
+        }
+
         let mid = arr.len() / 2;
         if mid == 0 {
             return;
@@ -149,7 +154,7 @@ impl<T: PartialOrd + Copy> Sort<T> for TdMerge {
         TdMerge::sort(&mut arr[..mid]);
         TdMerge::sort(&mut arr[mid..]);
 
-        if arr[mid + 1] >= arr[mid] {
+        if arr[mid - 1] <= arr[mid] {
             // 左边区域的最大值小于等于右边区域的最小值时，表示本身已经有序。
             return;
         }

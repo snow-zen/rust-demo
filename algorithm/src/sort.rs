@@ -230,6 +230,11 @@ impl Quick {
             return;
         }
 
+        if end - start + 1 <= 8 {
+            Insert::sort(&mut arr[start..=end]);
+            return;
+        }
+
         let pivot = Quick::partition(arr, start, end);
         if let Some(r) = pivot.checked_sub(1) {
             Quick::do_quick_sort(arr, start, r);
@@ -243,25 +248,63 @@ impl Quick {
     where
         T: PartialOrd,
     {
-        let pivot = start;
+        let mid = Quick::median(arr, start, start + (end - start + 1) / 2, end);
+        arr.swap(start, mid);
+
         let mut l_idx = start + 1;
         let mut r_idx = end;
 
-        loop {
-            while l_idx < arr.len() && arr[l_idx] < arr[pivot] {
+        // 假设 arr[l_idx] 是最大的元素
+        while arr[l_idx] < arr[start] {
+            if l_idx == end {
+                arr.swap(l_idx, start);
+                return end;
+            }
+            l_idx += 1;
+        }
+
+        // 假设 arr[r_idx] 是最小的元素
+        while arr[r_idx] > arr[start] {
+            if r_idx == start + 1 {
+                return start;
+            }
+            r_idx -= 1;
+        }
+
+        while l_idx < r_idx {
+            arr.swap(l_idx, r_idx);
+            while arr[l_idx] < arr[start] {
                 l_idx += 1;
             }
-            while r_idx > 0 && arr[r_idx] > arr[pivot] {
+            while arr[r_idx] > arr[start] {
                 r_idx -= 1;
             }
-
-            if l_idx >= r_idx {
-                break;
-            }
-            arr.swap(l_idx, r_idx);
         }
-        arr.swap(pivot, r_idx);
+
+        arr.swap(start, r_idx);
         r_idx
+    }
+
+    fn median<T>(arr: &[T], idx1: usize, idx2: usize, idx3: usize) -> usize
+    where
+        T: PartialOrd,
+    {
+        if arr[idx1] < arr[idx2] {
+            if arr[idx2] < arr[idx3] {
+                return idx2;
+            }
+            if arr[idx1] < arr[idx3] {
+                return idx3;
+            }
+            return idx1
+        }
+        if arr[idx1] < arr[idx3] {
+            return idx1;
+        }
+        if arr[idx2] < arr[idx3] {
+            return idx3;
+        }
+        idx2
     }
 }
 

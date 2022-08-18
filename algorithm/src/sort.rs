@@ -12,6 +12,8 @@ pub struct Bubble;
 impl<T: PartialOrd> Sort<T> for Bubble {
     /// 冒泡排序
     ///
+    /// # Examples
+    ///
     /// ```
     /// use algorithm::sort::{Bubble, Sort};
     /// let mut arr = [3, 2, 1];
@@ -40,6 +42,8 @@ pub struct Select;
 impl<T: PartialOrd> Sort<T> for Select {
     /// 选择排序
     ///
+    /// # Examples
+    ///
     /// ```
     /// use algorithm::sort::{Select, Sort};
     /// let mut arr = [3, 2, 1];
@@ -66,6 +70,8 @@ pub struct Insert;
 
 impl<T: PartialOrd> Sort<T> for Insert {
     /// 插入排序
+    ///
+    /// # Examples
     ///
     /// ```
     /// use algorithm::sort::{Insert, Sort};
@@ -134,6 +140,8 @@ impl TdMerge {
 impl<T: PartialOrd + Copy> Sort<T> for TdMerge {
     /// 自顶向下归并排序
     ///
+    /// # Examples
+    ///
     /// ```
     /// use algorithm::sort::{TdMerge, Sort};
     /// let mut arr = [3, 2, 1];
@@ -198,6 +206,8 @@ impl BuMerge {
 
 impl<T: PartialOrd + Copy> Sort<T> for BuMerge {
     /// 自底向上的归并排序
+    ///
+    /// # Examples
     ///
     /// ```
     /// use algorithm::sort::{BuMerge, Sort};
@@ -311,6 +321,8 @@ impl Quick {
 impl<T: PartialOrd> Sort<T> for Quick {
     /// 快速排序
     ///
+    /// # Examples
+    ///
     /// ```
     /// use algorithm::sort::{Quick, Sort};
     /// let mut arr = [3, 2, 1];
@@ -330,6 +342,8 @@ pub struct Shell;
 
 impl<T: PartialOrd> Sort<T> for Shell {
     /// 希尔排序
+    ///
+    /// # Examples
     ///
     /// ```
     /// use algorithm::sort::{Shell, Sort};

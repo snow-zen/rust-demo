@@ -306,7 +306,7 @@ impl Quick {
             if arr[idx1] < arr[idx3] {
                 return idx3;
             }
-            return idx1
+            return idx1;
         }
         if arr[idx1] < arr[idx3] {
             return idx1;
@@ -366,6 +366,57 @@ impl<T: PartialOrd> Sort<T> for Shell {
                 }
             }
             h /= 3;
+        }
+    }
+}
+
+pub struct Heap;
+
+impl Heap {
+    fn sink<T>(arr: &mut [T], n: usize)
+    where
+        T: PartialOrd,
+    {
+        let mut k = 0;
+        while 2 * k + 1 <= n {
+            let mut j = 2 * k + 1;
+            if let Some(x) = arr.get(j + 1) {
+                if arr[j] >= *x {
+                    j += 1;
+                }
+            }
+            if arr[j] > arr[k] {
+                break;
+            }
+            arr.swap(k, j);
+            k = j;
+        }
+    }
+}
+
+impl<T: PartialOrd> Sort<T> for Heap {
+    /// 堆排序
+    ///
+    /// # Eaxmples
+    ///
+    /// ```
+    /// use algorithm::sort::{Heap, Sort};
+    /// let mut arr = [3, 2, 1];
+    /// Heap::sort(&mut arr);
+    /// assert_eq!([1, 2, 3], arr);
+    /// ```
+    fn sort(arr: &mut [T]) {
+        if arr.len() == 0 {
+            return;
+        }
+
+        for k in (0..=(arr.len() / 2)).rev() {
+            Heap::sink(arr, k);
+        }
+
+        for k in (0..arr.len() - 1).rev() {
+            arr.swap(0, k);
+            Heap::sink(arr, k);
         }
     }
 }

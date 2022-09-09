@@ -18,7 +18,7 @@ impl<T: PartialOrd> PriorityQueue<T> {
     /// # Examples
     ///
     /// ```
-    /// use algorithm::heap::PriorityQueue;
+    /// use rust_demo::heap::PriorityQueue;
     /// let pq: PriorityQueue<i32> = PriorityQueue::new(1);
     /// assert_eq!(pq.size(), 0);
     /// assert!(pq.is_empty());
@@ -37,7 +37,7 @@ impl<T: PartialOrd> PriorityQueue<T> {
     /// # Examples
     ///
     /// ```
-    /// use algorithm::heap::PriorityQueue;
+    /// use rust_demo::heap::PriorityQueue;
     /// let pq: PriorityQueue<i32> = PriorityQueue::with_compare(1, |i1: &i32, i2: &i32| i1.partial_cmp(i2));
     /// assert_eq!(pq.size(), 0);
     /// assert!(pq.is_empty());
@@ -80,7 +80,7 @@ impl<T: PartialOrd> PriorityQueue<T> {
     /// # Examples
     ///
     /// ```
-    /// use algorithm::heap::PriorityQueue;
+    /// use rust_demo::heap::PriorityQueue;
     /// let mut pq = PriorityQueue::new(1);
     /// pq.push(1);
     /// assert_eq!(pq.size(), 1);
@@ -96,7 +96,7 @@ impl<T: PartialOrd> PriorityQueue<T> {
     /// # Examples
     ///
     /// ```
-    /// use algorithm::heap::PriorityQueue;
+    /// use rust_demo::heap::PriorityQueue;
     /// let mut pq = PriorityQueue::new(3);
     /// pq.push(1);
     /// pq.push(3);

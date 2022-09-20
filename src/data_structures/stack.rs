@@ -67,6 +67,7 @@ impl<T> Default for Stack<T> {
 }
 
 impl<T> Drop for Stack<T> {
+    #![allow(unused_assignments)]
     fn drop(&mut self) {
         let mut head = self.head.take();
         if let Some(mut it) = head {
@@ -121,6 +122,12 @@ mod tests {
 
     #[test]
     fn empty() {
+        let stack: Stack<i32> = Stack::new();
+        assert!(stack.is_empty());
+    }
+
+    #[test]
+    fn push_and_pop() {
         let mut stack = Stack::new();
         assert_eq!(stack.pop(), None);
         assert!(stack.is_empty());
@@ -143,5 +150,15 @@ mod tests {
         assert_eq!(stack.pop(), None);
 
         assert!(stack.is_empty());
+    }
+
+    #[test]
+    fn peek() {
+        let mut stack = Stack::new();
+        assert_eq!(stack.peek(), None);
+
+        stack.push(1);
+        assert_eq!(stack.peek(), Some(&1));
+        assert_eq!(stack.is_empty(), false);
     }
 }

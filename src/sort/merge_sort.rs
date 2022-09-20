@@ -61,8 +61,7 @@ where
     let mut right_idx = mid + 1;
 
     for x in start..end {
-        if right_idx >= end ||
-            (left_idx <= mid && temp_copy[left_idx] < temp_copy[right_idx]) {
+        if right_idx >= end || (left_idx <= mid && temp_copy[left_idx] < temp_copy[right_idx]) {
             arr[x] = temp_copy[left_idx];
             left_idx += 1;
         } else {

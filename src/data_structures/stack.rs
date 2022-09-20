@@ -11,9 +11,7 @@ struct Node<T> {
 
 impl<T> Stack<T> {
     pub fn new() -> Self {
-        Stack {
-            head: None
-        }
+        Stack { head: None }
     }
 
     pub fn push(&mut self, val: T) {
@@ -45,13 +43,13 @@ impl<T> Stack<T> {
 
     pub fn iter(&self) -> Iter<'_, T> {
         Iter {
-            next: self.head.as_deref()
+            next: self.head.as_deref(),
         }
     }
 
     pub fn iter_mut(&mut self) -> IterMut<'_, T> {
         IterMut {
-            next: self.head.as_deref_mut()
+            next: self.head.as_deref_mut(),
         }
     }
 

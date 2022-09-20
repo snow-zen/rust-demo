@@ -1,5 +1,3 @@
-use std::process::id;
-
 pub fn heap_sort<T>(arr: &mut [T])
 where
     T: Ord,

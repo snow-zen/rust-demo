@@ -42,7 +42,7 @@ mod tests {
 
     #[test]
     fn empty() {
-        let mut arr:Vec<usize> = vec![];
+        let mut arr: Vec<usize> = vec![];
         bubble_sort(&mut arr);
         assert!(is_sort(&arr));
     }

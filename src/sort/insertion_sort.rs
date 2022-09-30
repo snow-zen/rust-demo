@@ -1,3 +1,15 @@
+/// 插入排序
+/// 
+/// 稳定排序算法，平均时间复杂度为 O(n^2)，空间复杂度为 O(1)。
+/// 
+/// # Example
+/// 
+/// ```
+/// use rust_demo::sort::insertion_sort;
+/// let mut arr = [2, 1, 3];
+/// insertion_sort(&mut arr);
+/// assert_eq!(arr, [1, 2, 3]);
+/// ```
 pub fn insertion_sort<T>(arr: &mut [T])
 where
     T: Ord,

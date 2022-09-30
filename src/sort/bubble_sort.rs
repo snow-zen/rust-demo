@@ -1,3 +1,15 @@
+/// 冒泡排序
+/// 
+/// 稳定排序算法，平均时间复杂度为 O(n^2)，空间复杂度为 O(1)。
+///
+/// # Examples
+/// 
+/// ```
+/// use rust_demo::sort::bubble_sort;
+/// let mut arr = [2, 3, 1];
+/// bubble_sort(&mut arr);
+/// assert_eq!(arr, [1, 2, 3]);
+/// ```
 pub fn bubble_sort<T>(arr: &mut [T])
 where
     T: Ord,

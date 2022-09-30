@@ -14,7 +14,8 @@ mod quick_sort;
 mod selection_sort;
 mod shell_sort;
 
-pub fn is_sort<T>(arr: &[T]) -> bool
+#[allow(dead_code)]
+fn is_sort<T>(arr: &[T]) -> bool
 where
     T: PartialOrd,
 {

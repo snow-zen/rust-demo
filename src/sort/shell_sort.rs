@@ -1,3 +1,15 @@
+/// 希尔排序
+/// 
+/// 不稳定排序算法，平均时间复杂度为 O(nlogn)，空间复杂度为 O(1)。
+/// 
+/// # Example
+/// 
+/// ```
+/// use rust_demo::sort::shell_sort;
+/// let mut arr = [2, 1, 3];
+/// shell_sort(&mut arr);
+/// assert_eq!(arr, [1, 2, 3]);
+/// ```
 pub fn shell_sort<T>(arr: &mut [T])
 where
     T: Ord,

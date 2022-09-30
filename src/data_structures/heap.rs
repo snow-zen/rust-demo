@@ -1,6 +1,7 @@
 use std::cmp::Ordering;
 use std::cmp::Ordering::Less;
 
+/// 堆结构
 pub struct Heap<T>
 where
     T: Default,
@@ -14,6 +15,14 @@ impl<T> Heap<T>
 where
     T: Default,
 {
+    /// 创建一个空堆
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::Heap;
+    /// let heap:Heap<i32> = Heap::new(|i1, i2| i1.partial_cmp(i2));
+    /// ```
     pub fn new(comparator: fn(&T, &T) -> Option<Ordering>) -> Self {
         Self {
             count: 0,
@@ -22,14 +31,44 @@ where
         }
     }
 
+    /// 返回堆的元素数量
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::Heap;
+    /// let heap:Heap<i32> = Heap::new(|i1, i2| i1.partial_cmp(i2));
+    /// 
+    /// assert_eq!(heap.len(), 0);
+    /// ```
     pub fn len(&self) -> usize {
         self.count
     }
 
+    /// 返回堆是否为空
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::Heap;
+    /// let heap:Heap<i32> = Heap::new(|i1, i2| i1.partial_cmp(i2));
+    /// 
+    /// assert!(heap.is_empty());
+    /// ```
     pub fn is_empty(&self) -> bool {
         self.len() == 0
     }
 
+    /// 向堆中添加一个元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::Heap;
+    /// let mut heap:Heap<i32> = Heap::new(|i1, i2| i1.partial_cmp(i2));
+    /// 
+    /// heap.push(1);
+    /// ```
     pub fn push(&mut self, item: T) {
         self.count += 1;
         self.items.push(item);
@@ -44,6 +83,16 @@ where
         }
     }
 
+    /// 从堆中去除一个元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::Heap;
+    /// let mut heap:Heap<i32> = Heap::new(|i1, i2| i1.partial_cmp(i2));
+    /// 
+    /// assert_eq!(heap.pop(), None);
+    /// ```
     pub fn pop(&mut self) -> Option<T> {
         if self.count == 0 {
             return None;
@@ -100,10 +149,26 @@ impl<T> Heap<T>
 where
     T: Default + Ord,
 {
+    /// 创建一个空元素的小顶堆
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::Heap;
+    /// let mut heap:Heap<i32> = Heap::new_min();
+    /// ```
     pub fn new_min() -> Self {
         Self::new(|it1, it2| it1.partial_cmp(it2))
     }
 
+    /// 创建一个空元素的大顶堆
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::Heap;
+    /// let mut heap:Heap<i32> = Heap::new_max();
+    /// ```
     pub fn new_max() -> Self {
         Self::new(|it1, it2| it1.partial_cmp(it2).map(|res| res.reverse()))
     }

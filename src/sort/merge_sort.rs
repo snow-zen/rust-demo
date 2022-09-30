@@ -1,5 +1,17 @@
 use std::cmp::min;
 
+/// 自顶向下的归并排序
+/// 
+/// 稳定排序算法，平均时间复杂度为 O(nlogn)，空间复杂度为 O(n)。
+/// 
+/// # Example
+/// 
+/// ```
+/// use rust_demo::sort::td_merge_sort;
+/// let mut arr = [2, 1, 3];
+/// td_merge_sort(&mut arr);
+/// assert_eq!(arr, [1, 2, 3]);
+/// ```
 pub fn td_merge_sort<T>(arr: &mut [T])
 where
     T: Ord + Copy,
@@ -37,6 +49,18 @@ where
     }
 }
 
+/// 自底向上的归并排序
+/// 
+/// 稳定排序算法，平均时间复杂度为 O(nlogn)，空间复杂度为 O(n)。
+/// 
+/// # Example
+/// 
+/// ```
+/// use rust_demo::sort::bu_merge_sort;
+/// let mut arr = [2, 1, 3];
+/// bu_merge_sort(&mut arr);
+/// assert_eq!(arr, [1, 2, 3]);
+/// ```
 pub fn bu_merge_sort<T>(arr: &mut [T])
 where
     T: Ord + Copy,

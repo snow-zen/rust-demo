@@ -18,6 +18,10 @@ impl<T> Node<T> {
 
 type Link<T> = Option<NonNull<Node<T>>>;
 
+/// 双向链表
+/// 
+/// 可在头部和尾部插入和删除元素，且时间复杂度都为 O(1)；
+/// 但如果通过索引进行添加和删除元素时，时间复杂度为 O(n)。
 pub struct LinkedList<T> {
     size: usize,
     head: Link<T>,
@@ -25,6 +29,14 @@ pub struct LinkedList<T> {
 }
 
 impl<T> LinkedList<T> {
+    /// 创建一个空元素的双向链表
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let list:LinkedList<i32> = LinkedList::new();
+    /// ```
     pub fn new() -> Self {
         Self {
             size: 0,
@@ -33,10 +45,29 @@ impl<T> LinkedList<T> {
         }
     }
 
+    /// 返回链表的元素数量
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let list:LinkedList<i32> = LinkedList::new();
+    /// 
+    /// assert_eq!(list.size(), 0);
+    /// ```
     pub fn size(&self) -> usize {
         self.size
     }
 
+    /// 从链表头部添加一个元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let mut list = LinkedList::new();
+    /// list.offer_head(1);
+    /// ```
     pub fn offer_head(&mut self, val: T) {
         let mut node = Box::new(Node::new(val));
         node.next = self.head;
@@ -49,6 +80,15 @@ impl<T> LinkedList<T> {
         self.size += 1;
     }
 
+    /// 从链表尾部添加一个元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let mut list = LinkedList::new();
+    /// list.offer_tail(1);
+    /// ```
     pub fn offer_tail(&mut self, val: T) {
         let mut node = Box::new(Node::new(val));
         node.prev = self.tail;
@@ -61,6 +101,16 @@ impl<T> LinkedList<T> {
         self.size += 1;
     }
 
+    /// 从链表头部添加一个元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let mut list:LinkedList<i32> = LinkedList::new();
+    /// 
+    /// assert_eq!(list.poll_head(), None);
+    /// ```
     pub fn poll_head(&mut self) -> Option<T> {
         self.head.map(|old_head_ptr| unsafe {
             let old_head = Box::from_raw(old_head_ptr.as_ptr());
@@ -74,6 +124,16 @@ impl<T> LinkedList<T> {
         })
     }
 
+    /// 从链表尾部添加一个元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let mut list:LinkedList<i32> = LinkedList::new();
+    /// 
+    /// assert_eq!(list.poll_tail(), None);
+    /// ```
     pub fn poll_tail(&mut self) -> Option<T> {
         self.tail.map(|old_tail_ptr| unsafe {
             let old_tail = Box::from_raw(old_tail_ptr.as_ptr());
@@ -87,6 +147,16 @@ impl<T> LinkedList<T> {
         })
     }
 
+    /// 在链表指定索引位置添加元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let mut list = LinkedList::new();
+    /// 
+    /// list.insert(0, 1);
+    /// ```
     pub fn insert(&mut self, index: usize, val: T) {
         if index > self.size {
             panic!("Index out of bounds");
@@ -126,6 +196,17 @@ impl<T> LinkedList<T> {
         }
     }
 
+    /// 从链表指定索引位置删除元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let mut list:LinkedList<i32> = LinkedList::new();
+    /// 
+    /// list.offer_head(1);
+    /// assert_eq!(list.remove(0), Some(1));
+    /// ```
     pub fn remove(&mut self, index: usize) -> Option<T> {
         if index >= self.size {
             panic!("Index out of bounds");
@@ -160,6 +241,17 @@ impl<T> LinkedList<T> {
         None
     }
 
+    /// 获取链表指定索引位置元素引用
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::LinkedList;
+    /// let mut list:LinkedList<i32> = LinkedList::new();
+    /// 
+    /// list.offer_head(1);
+    /// assert_eq!(list.get(0), Some(&1));
+    /// ```
     pub fn get(&self, index: usize) -> Option<&T> {
         if index >= self.size {
             panic!("Index out of bounds");

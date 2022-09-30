@@ -54,6 +54,7 @@ where
 
 type Link<T> = Option<Box<Node<T>>>;
 
+/// 二叉搜索树
 pub struct BinarySearchTree<T>
 where
     T: PartialOrd,
@@ -65,10 +66,28 @@ impl<T> BinarySearchTree<T>
 where
     T: PartialOrd,
 {
+    /// 创建一个空的二叉搜索树
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::BinarySearchTree;
+    /// let tree:BinarySearchTree<i32> = BinarySearchTree::new();
+    /// ```
     pub fn new() -> Self {
         Self { root: None }
     }
 
+    /// 向二叉搜索树添加一个元素
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::BinarySearchTree;
+    /// let mut tree = BinarySearchTree::new();
+    /// 
+    /// tree.insert(1);
+    /// ```
     pub fn insert(&mut self, val: T) {
         match &mut self.root {
             None => self.root = Some(Box::new(Node::new(val))),
@@ -78,6 +97,16 @@ where
         }
     }
 
+    /// 查询二叉搜索树中是否存在指定值
+    /// 
+    /// # Example
+    /// 
+    /// ```
+    /// use rust_demo::data_structures::BinarySearchTree;
+    /// let tree = BinarySearchTree::new();
+    /// 
+    /// assert_eq!(tree.search(&1), false);
+    /// ```
     pub fn search(&self, val: &T) -> bool {
         match self.root {
             None => false,

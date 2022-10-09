@@ -22,7 +22,7 @@ where
     }
 
     fn insert(&mut self, val: T) {
-        let target_node = if self.val > val {
+        let target_node = if self.val < val {
             &mut self.left
         } else {
             &mut self.right
@@ -41,7 +41,7 @@ where
             return true;
         }
 
-        let target_node = if self.val > *val {
+        let target_node = if self.val < *val {
             &self.left
         } else {
             &self.right
@@ -226,7 +226,7 @@ where
     /// use rust_demo::data_structures::BinarySearchTree;
     /// let tree:BinarySearchTree<i32> = BinarySearchTree::new();
     ///
-    /// assert_eq!(tree.floor(), None);
+    /// assert_eq!(tree.floor(&1), None);
     /// ```
     pub fn floor(&self, val: &T) -> Option<&T> {
         match &self.root {
@@ -243,12 +243,52 @@ where
     /// use rust_demo::data_structures::BinarySearchTree;
     /// let tree:BinarySearchTree<i32> = BinarySearchTree::new();
     ///
-    /// assert_eq!(tree.ceil(), None);
+    /// assert_eq!(tree.ceil(&1), None);
     /// ```
     pub fn ceil(&self, val: &T) -> Option<&T> {
         match &self.root {
             None => None,
             Some(node) => node.ceil(val),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::BinarySearchTree;
+
+    fn perpare_tree() -> BinarySearchTree<i32> {
+        let mut result = BinarySearchTree::new();
+        result.insert(1);
+        result.insert(2);
+        result.insert(3);
+        result.insert(5);
+        result.insert(6);
+        result.insert(7);
+        result
+    }
+
+    #[test]
+    fn test_search() {
+        let tree = perpare_tree();
+        assert!(tree.search(&1));
+        assert!(tree.search(&2));
+        assert!(tree.search(&3));
+
+        assert!(!tree.search(&4));
+    }
+
+    #[test]
+    fn test_max_and_min() {
+        let tree = perpare_tree();
+        assert_eq!(tree.max(), Some(&7));
+        assert_eq!(tree.min(), Some(&1));
+    }
+
+    #[test]
+    fn test_floor_and_ceil() {
+        let tree = perpare_tree();
+        assert_eq!(tree.floor(&4), Some(&3));
+        assert_eq!(tree.ceil(&4), Some(&5));
     }
 }
